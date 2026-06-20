@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm -r --filter @workspace/luka-food run build"
+  command = "pnpm -r --if-present run build"
   publish = "artifacts/luka-food/dist/public/"
 
 [build.environment]
