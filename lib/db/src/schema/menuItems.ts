@@ -6,6 +6,7 @@ import {
   boolean,
   timestamp,
   integer,
+  index,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
@@ -22,7 +23,9 @@ export const menuItemsTable = pgTable("menu_items", {
   imageUrl: text("image_url"),
   available: boolean("available").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+}, (table) => ({
+  categoryIdx: index("menu_items_category_idx").on(table.categoryId),
+}));
 
 export const insertMenuItemSchema = createInsertSchema(menuItemsTable).omit({
   id: true,
