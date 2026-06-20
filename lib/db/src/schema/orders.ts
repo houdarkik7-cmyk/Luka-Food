@@ -33,7 +33,7 @@ export const orderItemsTable = pgTable("order_items", {
     .references(() => ordersTable.id, { onDelete: "cascade" }),
   menuItemId: integer("menu_item_id")
     .notNull()
-    .references(() => menuItemsTable.id),
+    .references(() => menuItemsTable.id, { onDelete: "cascade" }),
   menuItemName: text("menu_item_name").notNull(),
   quantity: integer("quantity").notNull(),
   unitPrice: numeric("unit_price", { precision: 10, scale: 3 }).notNull(),

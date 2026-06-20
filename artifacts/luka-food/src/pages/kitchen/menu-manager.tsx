@@ -128,7 +128,12 @@ export function MenuManager() {
         setIsItemDialogOpen(false);
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
       },
-      onError: () => toast({ title: "خطأ في إضافة الصنف", variant: "destructive" }),
+      onError: (error) => {
+        const msg = (error as { status?: number }).status === 413
+          ? "حجم الصورة كبير جداً. اختر صورة أصغر."
+          : "خطأ في إضافة الصنف";
+        toast({ title: msg, variant: "destructive" });
+      },
     });
   };
 
