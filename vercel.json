@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "nodeVersion": "22.x",
   "buildCommand": "pnpm --filter @workspace/luka-food run build",
   "outputDirectory": "artifacts/luka-food/dist/public",
   "installCommand": "pnpm install --no-frozen-lockfile",
