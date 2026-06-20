@@ -91,6 +91,7 @@ export function MenuManager() {
         toast({ title: "تم حذف القسم" });
         queryClient.invalidateQueries({ queryKey: getListCategoriesQueryKey() });
       },
+      onError: () => toast({ title: "لا يمكن حذف القسم، تأكد من عدم وجود أصناف مرتبطة به", variant: "destructive" }),
     });
   };
 
@@ -149,6 +150,7 @@ export function MenuManager() {
         toast({ title: "تم حذف الصنف" });
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
       },
+      onError: () => toast({ title: "خطأ في حذف الصنف", variant: "destructive" }),
     });
   };
 
