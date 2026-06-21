@@ -44,5 +44,8 @@
     "vite": "catalog:",
     "wouter": "^3.3.5",
     "zod": "catalog:"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.20"
   }
 }

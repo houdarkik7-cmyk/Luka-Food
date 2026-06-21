@@ -91,6 +91,9 @@ export function MenuManager() {
         toast({ title: "تم حذف القسم" });
         queryClient.invalidateQueries({ queryKey: getListCategoriesQueryKey() });
       },
+      onError: () => {
+        toast({ title: "لا يمكن حذف هذا القسم", description: "يرجى حذف الأصناف المرتبطة به أولاً", variant: "destructive" });
+      },
     });
   };
 
@@ -128,7 +131,10 @@ export function MenuManager() {
         setIsItemDialogOpen(false);
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
       },
-      onError: () => toast({ title: "خطأ في إضافة الصنف", variant: "destructive" }),
+      onError: (err: unknown) => {
+        const msg = err instanceof Error ? err.message : "خطأ في إضافة الصنف";
+        toast({ title: "خطأ في إضافة الصنف", description: msg, variant: "destructive" });
+      },
     });
   };
 
@@ -143,6 +149,9 @@ export function MenuManager() {
       onSuccess: () => {
         toast({ title: "تم حذف الصنف" });
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
+      },
+      onError: () => {
+        toast({ title: "لا يمكن حذف هذا الصنف", description: "يرجى تعطيله بدلاً من حذفه إذا كان مرتبطاً بطلبات سابقة", variant: "destructive" });
       },
     });
   };
