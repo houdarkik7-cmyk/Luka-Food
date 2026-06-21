@@ -10,6 +10,11 @@ export const statusLabel: Record<OrderStatus, string> = {
   [OrderStatus.completed]: "مكتمل",
 };
 
+export function publicPath(path: string): string {
+  const base = import.meta.env.BASE_URL || "/";
+  return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
+}
+
 export function isEnglishText(text: string): boolean {
   const latinChars = text.match(/[a-zA-Z]/g)?.length || 0;
   return latinChars > 0 && latinChars / text.length > 0.5;
