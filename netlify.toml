@@ -14,8 +14,14 @@
   to = "/index.html"
   status = 200
 
-# API proxy - uncomment and set your actual API URL in Netlify env vars
-# e.g. Set API_URL env var in Netlify dashboard, then use:
+# =============================================================================
+# API Proxy — استخدم هذا لتوجيه طلبات API إلى السيرفر الخاص بك
+# =============================================================================
+# بعد نشر API Server (على Render / Railway / VPS):
+# 1. اذهب إلى Netlify Dashboard → Environment variables
+# 2. أضف API_URL = https://your-api-server.com
+# 3. بعدها افعل التعليقات في الأسفل:
+#
 # [[redirects]]
 #   from = "/api/*"
 #   to = "https://your-api-server.com/api/:splat"
