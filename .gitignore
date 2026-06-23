@@ -57,6 +57,10 @@ Thumbs.db
 # Log files
 *.log
 *.err
+*-err.txt
+*-err*.txt
+*-out.txt
+*-out*.txt
 *.err.txt
 *.out.txt
 
