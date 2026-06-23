@@ -81,7 +81,7 @@ export function MenuManager() {
         setIsCatDialogOpen(false);
         queryClient.invalidateQueries({ queryKey: getListCategoriesQueryKey() });
       },
-      onError: () => toast({ title: "خطأ في إضافة القسم", variant: "destructive" }),
+      onError: (err: unknown) => toast({ title: "خطأ في إضافة القسم", description: err instanceof Error ? err.message : undefined, variant: "destructive" }),
     });
   };
 
@@ -90,6 +90,10 @@ export function MenuManager() {
       onSuccess: () => {
         toast({ title: "تم حذف القسم" });
         queryClient.invalidateQueries({ queryKey: getListCategoriesQueryKey() });
+      },
+      onError: (err: unknown) => {
+        const msg = err instanceof Error ? err.message : "تعذر حذف القسم. تأكد من عدم وجود أصناف مرتبطة به";
+        toast({ title: "خطأ", description: msg, variant: "destructive" });
       },
     });
   };
@@ -128,7 +132,7 @@ export function MenuManager() {
         setIsItemDialogOpen(false);
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
       },
-      onError: () => toast({ title: "خطأ في إضافة الصنف", variant: "destructive" }),
+      onError: (err: unknown) => toast({ title: "خطأ في إضافة الصنف", description: err instanceof Error ? err.message : undefined, variant: "destructive" }),
     });
   };
 
@@ -143,6 +147,10 @@ export function MenuManager() {
       onSuccess: () => {
         toast({ title: "تم حذف الصنف" });
         queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() });
+      },
+      onError: (err: unknown) => {
+        const msg = err instanceof Error ? err.message : "تعذر حذف الصنف. قد يكون مرتبطاً بطلبات سابقة";
+        toast({ title: "خطأ", description: msg, variant: "destructive" });
       },
     });
   };
