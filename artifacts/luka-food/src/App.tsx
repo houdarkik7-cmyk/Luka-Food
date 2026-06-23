@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -5,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ClientMenu } from "@/pages/client/menu";
 import { KitchenDashboard } from "@/pages/kitchen/dashboard";
 import { CartProvider } from "@/contexts/cart-context";
+import { setBaseUrl } from "@workspace/api-client-react";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +21,13 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (apiUrl) {
+      setBaseUrl(apiUrl);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>

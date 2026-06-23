@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useGetOrderStats, useListOrders, useUpdateOrderStatus, OrderStatus, Order } from "@workspace/api-client-react";
-import { statusLabel, formatPrice } from "@/lib/helpers";
+import { statusLabel, formatPrice, publicPath } from "@/lib/helpers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ export function OrdersManager() {
   const prevPendingIdsRef = useRef<Set<number> | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/alert.mp3");
+    const audio = new Audio(publicPath("/alert.mp3"));
     audio.preload = "auto";
     audioRef.current = audio;
   }, []);

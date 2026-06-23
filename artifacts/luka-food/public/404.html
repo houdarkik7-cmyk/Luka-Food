@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Luka Food</title>
+  <script>
+    // Redirect to index.html preserving the path for the SPA router
+    (function () {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      // Find the base path (everything up to the last / in the pathname)
+      // Store the full path so the SPA can restore it
+      sessionStorage.redirect = path + search + hash;
+      window.location.replace(path.substring(0, path.lastIndexOf('/') + 1) + 'index.html');
+    })();
+  </script>
+</head>
+<body></body>
+</html>

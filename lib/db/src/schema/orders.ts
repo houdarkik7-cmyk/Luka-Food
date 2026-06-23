@@ -6,6 +6,7 @@ import {
   numeric,
   timestamp,
   pgEnum,
+  index,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
@@ -24,7 +25,10 @@ export const ordersTable = pgTable("orders", {
   totalPrice: numeric("total_price", { precision: 10, scale: 3 }).notNull(),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+}, (table) => ({
+  statusIdx: index("orders_status_idx").on(table.status),
+  createdAtIdx: index("orders_created_at_idx").on(table.createdAt),
+}));
 
 export const orderItemsTable = pgTable("order_items", {
   id: serial("id").primaryKey(),
@@ -37,7 +41,9 @@ export const orderItemsTable = pgTable("order_items", {
   menuItemName: text("menu_item_name").notNull(),
   quantity: integer("quantity").notNull(),
   unitPrice: numeric("unit_price", { precision: 10, scale: 3 }).notNull(),
-});
+}, (table) => ({
+  orderIdx: index("order_items_order_idx").on(table.orderId),
+}));
 
 export const insertOrderSchema = createInsertSchema(ordersTable).omit({
   id: true,

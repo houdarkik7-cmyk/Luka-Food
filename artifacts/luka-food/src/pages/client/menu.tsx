@@ -1,5 +1,5 @@
 import { useListCategories, useListMenuItems, type MenuItem } from "@workspace/api-client-react";
-import { formatPrice, isEnglishText } from "@/lib/helpers";
+import { formatPrice, isEnglishText, publicPath } from "@/lib/helpers";
 import { useCart } from "@/contexts/cart-context";
 import { CartDrawer } from "@/components/cart-drawer";
 import { Button } from "@/components/ui/button";
@@ -131,7 +131,7 @@ export function ClientMenu() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <motion.img
-              src="/logo.jpg"
+              src={publicPath("/logo.jpg")}
               alt="Luka Food"
               className="h-12 w-12 rounded-xl object-cover"
               whileHover={{ scale: 1.05 }}
@@ -206,7 +206,7 @@ export function ClientMenu() {
       <footer className="border-t bg-card/50 py-5 px-4 mt-8">
         <div className="container mx-auto flex flex-col items-center gap-3">
           <div className="flex items-center gap-4">
-            <img src="/logo.jpg" alt="Luka Food" className="h-10 w-10 rounded-xl object-cover" />
+            <img src={publicPath("/logo.jpg")} alt="Luka Food" className="h-10 w-10 rounded-xl object-cover" />
             <a
               href="https://www.facebook.com/profile.php?id=100054244160876"
               target="_blank"
@@ -218,7 +218,7 @@ export function ClientMenu() {
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <img src="/raqm-studio.jpg" alt="RAQM Studio" className="h-7 w-7 rounded-full object-cover" />
+            <img src={publicPath("/raqm-studio.jpg")} alt="RAQM Studio" className="h-7 w-7 rounded-full object-cover" />
             <span className="text-xs text-muted-foreground">
               <span className="font-medium">RAQM Studio</span>
               <span className="mx-1.5">·</span>

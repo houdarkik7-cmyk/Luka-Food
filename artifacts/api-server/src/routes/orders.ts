@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, and, gte, sql } from "drizzle-orm";
+import { eq, and, gte, sql, inArray } from "drizzle-orm";
 import { db, ordersTable, orderItemsTable, menuItemsTable } from "@workspace/db";
 import {
   ListOrdersQueryParams,
@@ -83,7 +83,7 @@ router.get("/orders", async (req, res) => {
       ? await db
           .select()
           .from(orderItemsTable)
-          .where(sql`${orderItemsTable.orderId} = ANY(${sql.raw(`ARRAY[${orderIds.join(",")}]`)})`)
+          .where(inArray(orderItemsTable.orderId, orderIds))
       : [];
 
   const itemsByOrder = items.reduce(
@@ -109,7 +109,7 @@ router.post("/orders", async (req, res) => {
   const menuItems = await db
     .select()
     .from(menuItemsTable)
-    .where(sql`${menuItemsTable.id} = ANY(${sql.raw(`ARRAY[${menuItemIds.join(",")}]`)})`);
+      .where(inArray(menuItemsTable.id, menuItemIds));
 
   const menuItemMap = new Map(menuItems.map((m) => [m.id, m]));
 

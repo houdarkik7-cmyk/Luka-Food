@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useListOrders, useUpdateOrderStatus, OrderStatus, type Order } from "@workspace/api-client-react";
-import { formatPrice } from "@/lib/helpers";
+import { formatPrice, publicPath } from "@/lib/helpers";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, ChefHat, Clock, Volume2, VolumeX } from "lucide-react";
@@ -17,7 +17,7 @@ export function CookDisplay() {
   const prevPendingIdsRef = useRef<Set<number> | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/alert.mp3");
+    const audio = new Audio(publicPath("/alert.mp3"));
     audio.preload = "auto";
     audioRef.current = audio;
   }, []);
@@ -76,7 +76,7 @@ export function CookDisplay() {
       {/* Header */}
       <div className="border-b bg-card px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/logo.jpg" alt="Luka" className="h-10 w-10 rounded-lg object-cover" />
+          <img src={publicPath("/logo.jpg")} alt="Luka" className="h-10 w-10 rounded-lg object-cover" />
           <p className="text-xs text-muted-foreground font-en">Kitchen Display System</p>
         </div>
         <div className="flex items-center gap-4">
