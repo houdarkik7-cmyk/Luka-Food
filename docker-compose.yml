@@ -1,31 +1,34 @@
 services:
-  db:
-    image: postgres:16-alpine
-    container_name: luka-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: luka
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-luka123}
-      POSTGRES_DB: luka_food
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U luka -d luka_food"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+  # =============================================================================
+  # Supabase (قاعدة البيانات السحابية)
+  # تم نقل قاعدة البيانات إلى Supabase — لم نعد بحاجة لخدمة db المحلية
+  # لتشغيل البيئة المحلية للتطوير، قم بإلغاء تعليق الكود أدناه
+  # =============================================================================
+  # db:
+  #   image: postgres:16-alpine
+  #   container_name: luka-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: luka
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-luka123}
+  #     POSTGRES_DB: luka_food
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U luka -d luka_food"]
+  #     interval: 5s
+  #     timeout: 3s
+  #     retries: 5
 
   api:
     build: .
     container_name: luka-api
     restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://luka:${POSTGRES_PASSWORD:-luka123}@db:5432/luka_food
+      # استخدم Supabase DATABASE_URL من ملف .env
+      DATABASE_URL: ${DATABASE_URL}
       PORT: "5000"
       NODE_ENV: production
     ports:
@@ -42,5 +45,5 @@ services:
     depends_on:
       - api
 
-volumes:
-  pgdata:
+# volumes:
+#   pgdata:
